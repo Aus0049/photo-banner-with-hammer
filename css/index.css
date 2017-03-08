@@ -1,0 +1,142 @@
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+p {
+  margin: 0;
+}
+
+.characteristic-light-box {
+  padding: 0 0.4rem; }
+  .characteristic-light-box .header {
+    width: 8.53333rem;
+    margin: 0 auto;
+    position: relative;
+    border-bottom: 0.02667rem solid #e6e8eb;
+    overflow: hidden; }
+    .characteristic-light-box .header:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0.4rem;
+      height: 1.2rem;
+      -webkit-appearance: none;
+      background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0.1), white);
+      /* Safari 5.1 - 6.0 */
+      background: -o-linear-gradient(left, rgba(255, 255, 255, 0.1), white);
+      /* Opera 11.1 - 12.0 */
+      background: -moz-linear-gradient(left, rgba(255, 255, 255, 0.1), white);
+      /* Firefox 3.6 - 15 */
+      background: linear-gradient(to left, rgba(255, 255, 255, 0.1), white);
+    /* 标准的语法 */ }
+    .characteristic-light-box .header:after {
+      content: '';
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 0.4rem;
+      height: 1.2rem;
+      -webkit-appearance: none;
+      background: -webkit-linear-gradient(right, rgba(255, 255, 255, 0.1), white);
+      /* Safari 5.1 - 6.0 */
+      background: -o-linear-gradient(right, rgba(255, 255, 255, 0.1), white);
+      /* Opera 11.1 - 12.0 */
+      background: -moz-linear-gradient(right, rgba(255, 255, 255, 0.1), white);
+      /* Firefox 3.6 - 15 */
+      background: linear-gradient(to right, rgba(255, 255, 255, 0.1), white);
+    /* 标准的语法 */ }
+    .characteristic-light-box .header .header-list {
+      width: 13.6rem;
+      overflow: hidden; }
+      .characteristic-light-box .header .header-list li {
+        float: left; }
+        .characteristic-light-box .header .header-list li .item {
+          display: block;
+          width: 2.26667rem;
+          height: 1.2rem;
+          text-align: center;
+          line-height: 1.2rem;
+          font-size: 30px;
+          color: #3d4450;
+          -webkit-transition: all .3s;
+          -moz-transition: all .3s;
+          -o-transition: all .3s;
+          transition: all .3s; }
+          [data-dpr="1"] .characteristic-light-box .header .header-list li .item {
+            font-size: 15px; }
+            [data-dpr="2"] .characteristic-light-box .header .header-list li .item {
+              font-size: 30px; }
+              [data-dpr="3"] .characteristic-light-box .header .header-list li .item {
+                font-size: 45px; }
+                .characteristic-light-box .header .header-list li.active .item {
+                  color: #00b4a5; }
+                  .characteristic-light-box .body {
+                    width: 8.53333rem;
+                    margin: 0 auto;
+                    overflow: hidden; }
+                    .characteristic-light-box .body .body-list {
+                      width: 600%;
+                      overflow: hidden; }
+                      .characteristic-light-box .body .body-list li {
+                        float: left;
+                        width: 8.53333rem;
+                        padding-top: 0.6rem;
+                        text-align: center; }
+                        .characteristic-light-box .body .body-list li .title {
+                          margin: 0;
+                          font-size: 34px;
+                          color: #3d4450;
+                          line-height: 0.85333rem; }
+                          [data-dpr="1"] .characteristic-light-box .body .body-list li .title {
+                            font-size: 17px; }
+                            [data-dpr="2"] .characteristic-light-box .body .body-list li .title {
+                              font-size: 34px; }
+                              [data-dpr="3"] .characteristic-light-box .body .body-list li .title {
+                                font-size: 51px; }
+                                .characteristic-light-box .body .body-list li .subtitle {
+                                  font-size: 24px;
+                                  color: #7b8390;
+                                  line-height: 0.53333rem; }
+                                  [data-dpr="1"] .characteristic-light-box .body .body-list li .subtitle {
+                                    font-size: 12px; }
+                                    [data-dpr="2"] .characteristic-light-box .body .body-list li .subtitle {
+                                      font-size: 24px; }
+                                      [data-dpr="3"] .characteristic-light-box .body .body-list li .subtitle {
+                                        font-size: 36px; }
+                                        .characteristic-light-box .body .body-list li .screenshot {
+                                          display: block;
+                                          width: 7.73333rem;
+                                          height: 4.32rem;
+                                          margin: 0.2rem auto 0.2rem auto; }
+                                          .characteristic-light-box .foot {
+                                            width: 100%;
+                                            margin: 0.2rem 0 0.8rem 0;
+                                            text-align: center; }
+                                            .characteristic-light-box .foot .dot {
+                                              display: inline-block;
+                                              width: 0.13333rem;
+                                              height: 0.13333rem;
+                                              margin-right: 0.13333rem;
+                                              border-radius: 50%;
+                                              background: #f0f2f5;
+                                              -webkit-transition: all .3s;
+                                              -moz-transition: all .3s;
+                                              -o-transition: all .3s;
+                                              transition: all .3s; }
+                                              .characteristic-light-box .foot .dot:last-of-type {
+                                                margin: 0; }
+                                                .characteristic-light-box .foot .dot.active {
+                                                  background: #00b4a5;
+                                                  -webkit-transform: scale(1.2);
+                                                  -moz-transform: scale(1.2);
+                                                  -ms-transform: scale(1.2);
+                                                  -o-transform: scale(1.2);
+                                                  transform: scale(1.2); }
+
