@@ -145,13 +145,83 @@
 // })();
 
 // 闭包
+// var swipeClosure = (function () {
+//     var swipeListHammer = new Hammer($("#swipe-list")[0]);
+//     var header = $(".header-list");
+//     var headerList = $(".header-list li").hammer();
+//     var footerList = $(".foot span");
+//     var banner = $("#swipe-list");
+//     var currentBannerIndex = 0; // 记录当前显示的那个tab
+
+//     return function(){
+//         // 点击滑动
+//         headerList.on("tap", function(){
+//             var index = $(this).index();
+
+//             banner.animate({marginLeft: -(8.53333 * index) + "rem" }, 500);
+
+//             footerList.removeClass("active").eq(index).addClass("active");
+
+//             headerList.removeClass("active").eq(index).addClass("active");
+
+//             if([2,3,4].indexOf(index) >= 0){
+//                 header.animate({marginLeft: -(1.46667 * (index - 1)) + "rem"});
+//             }
+//             currentBannerIndex = index;
+//         });
+//         // ←滑 banner向左走 margin-left 减小
+//         swipeListHammer.on("swipeleft", function(e){
+//             // 最后一张 不可再右滑 所以是<5
+//             if(currentBannerIndex < 5){
+//                 banner.animate({marginLeft: -(8.53333 * (currentBannerIndex + 1)) + "rem" }, 500);
+//                 // foot
+//                 footerList.removeClass("active").eq(currentBannerIndex + 1).addClass("active");
+//                 // header滑动
+//                 headerList.removeClass("active").eq(currentBannerIndex + 1).addClass("active");
+
+//                 if([1,2,3].indexOf(currentBannerIndex) >= 0){
+//                     header.animate({marginLeft: -(1.46667 * currentBannerIndex) + "rem"});
+//                 }
+//                 // 索引增加
+//                 currentBannerIndex++;
+//             }
+//         });
+
+//         // 右滑 banner向右走 margin-left 增大
+//         swipeListHammer.on("swiperight", function(e){
+//             if(currentBannerIndex > 0){
+//                 banner.animate({marginLeft: -(8.53333 * (currentBannerIndex - 1)) + "rem" }, 500);
+//                 // foot
+//                 footerList.removeClass("active").eq(currentBannerIndex - 1).addClass("active");
+//                 // header滑动
+//                 headerList.removeClass("active").eq(currentBannerIndex - 1).addClass("active");
+
+//                 if([4,3,2].indexOf(currentBannerIndex) >= 0){
+//                     header.animate({marginLeft: -(1.46667 * (currentBannerIndex - 2)) + "rem"});
+//                 }
+//                 currentBannerIndex--;
+//             }
+//         });
+//     }
+// })();
+// swipeClosure();
+
+// 推荐使用闭包 因为闭包相对于立即执行函数更可控 不需要的时候 可以删除等
+// step 3 完成
+
+// 需求又改了 这次用户觉得上面的header应该拖动 但是不能拖动 要加上
+// 这次需要使用拖拽功能
+// step 4 增加header的拖拽
+
 var swipeClosure = (function () {
     var swipeListHammer = new Hammer($("#swipe-list")[0]);
     var header = $(".header-list");
+    var pinchHammer = new Hammer(header[0]);
     var headerList = $(".header-list li").hammer();
     var footerList = $(".foot span");
     var banner = $("#swipe-list");
     var currentBannerIndex = 0; // 记录当前显示的那个tab
+    var rem = parseInt($("html").css("fontSize"));
 
     return function(){
         // 点击滑动
@@ -202,11 +272,30 @@ var swipeClosure = (function () {
                 currentBannerIndex--;
             }
         });
+
+        // 滑动header
+        pinchHammer.on("pan", function (e) {
+            // e.deltaX就是偏移量
+            var current = parseInt(header.css("marginLeft"));
+            // 跟当前做差
+            var result = current + e.deltaX / 10;
+
+            // px2rem ！！！
+            result = result / rem;
+
+            // 上下限制 左右拉倒最大值就不能在拉了
+            if(result <= -5.1){
+                result = -5.1;
+            } else if (result >= 0) {
+                result = 0;
+            }
+
+            header.css("marginLeft", result + "rem");
+        });
     }
 })();
 swipeClosure();
 
-// 推荐使用闭包 因为闭包相对于立即执行函数更可控 不需要的时候 可以删除等
-// step 3 完成
+// step 4 完成
 
 
