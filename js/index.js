@@ -213,6 +213,98 @@
 // 这次需要使用拖拽功能
 // step 4 增加header的拖拽
 
+// var swipeClosure = (function () {
+//     var swipeListHammer = new Hammer($("#swipe-list")[0]);
+//     var header = $(".header-list");
+//     var pinchHammer = new Hammer(header[0]);
+//     var headerList = $(".header-list li").hammer();
+//     var footerList = $(".foot span");
+//     var banner = $("#swipe-list");
+//     var currentBannerIndex = 0; // 记录当前显示的那个tab
+//     var rem = parseInt($("html").css("fontSize"));
+
+//     return function(){
+//         // 点击滑动
+//         headerList.on("tap", function(){
+//             var index = $(this).index();
+
+//             banner.animate({marginLeft: -(8.53333 * index) + "rem" }, 500);
+
+//             footerList.removeClass("active").eq(index).addClass("active");
+
+//             headerList.removeClass("active").eq(index).addClass("active");
+
+//             if([2,3,4].indexOf(index) >= 0){
+//                 header.animate({marginLeft: -(1.46667 * (index - 1)) + "rem"});
+//             }
+//             currentBannerIndex = index;
+//         });
+//         // ←滑 banner向左走 margin-left 减小
+//         swipeListHammer.on("swipeleft", function(e){
+//             // 最后一张 不可再右滑 所以是<5
+//             if(currentBannerIndex < 5){
+//                 banner.animate({marginLeft: -(8.53333 * (currentBannerIndex + 1)) + "rem" }, 500);
+//                 // foot
+//                 footerList.removeClass("active").eq(currentBannerIndex + 1).addClass("active");
+//                 // header滑动
+//                 headerList.removeClass("active").eq(currentBannerIndex + 1).addClass("active");
+
+//                 if([1,2,3].indexOf(currentBannerIndex) >= 0){
+//                     header.animate({marginLeft: -(1.46667 * currentBannerIndex) + "rem"});
+//                 }
+//                 // 索引增加
+//                 currentBannerIndex++;
+//             }
+//         });
+
+//         // 右滑 banner向右走 margin-left 增大
+//         swipeListHammer.on("swiperight", function(e){
+//             if(currentBannerIndex > 0){
+//                 banner.animate({marginLeft: -(8.53333 * (currentBannerIndex - 1)) + "rem" }, 500);
+//                 // foot
+//                 footerList.removeClass("active").eq(currentBannerIndex - 1).addClass("active");
+//                 // header滑动
+//                 headerList.removeClass("active").eq(currentBannerIndex - 1).addClass("active");
+
+//                 if([4,3,2].indexOf(currentBannerIndex) >= 0){
+//                     header.animate({marginLeft: -(1.46667 * (currentBannerIndex - 2)) + "rem"});
+//                 }
+//                 currentBannerIndex--;
+//             }
+//         });
+
+//         // 滑动header
+//         pinchHammer.on("pan", function (e) {
+//             // e.deltaX就是偏移量
+//             var current = parseInt(header.css("marginLeft"));
+//             // 跟当前做差
+//             var result = current + e.deltaX / 10;
+
+//             // px2rem ！！！
+//             result = result / rem;
+
+//             // 上下限制 左右拉倒最大值就不能在拉了
+//             if(result <= -5.1){
+//                 result = -5.1;
+//             } else if (result >= 0) {
+//                 result = 0;
+//             }
+
+//             header.css("marginLeft", result + "rem");
+//         });
+//     }
+// })();
+// swipeClosure();
+
+// step 4 完成
+
+// 你以为这就完成了吗 no 要做一条有信仰的咸鱼
+// 这么生硬的效果显然不能令人满意 看看苹果针对这种极限问题怎么处理的
+// 苹果设备上页面针对到上限或者下线的时候 并不是不能拉 而是越来越难 最后松手的时候 回到极限
+// 这种实现方法也很简单 就是类似北京地铁每个月消费满100 之后消费8折 满150 5折一个道理 减少加速度
+
+// step 5 增加松手 弹性操作
+
 var swipeClosure = (function () {
     var swipeListHammer = new Hammer($("#swipe-list")[0]);
     var header = $(".header-list");
@@ -283,19 +375,38 @@ var swipeClosure = (function () {
             // px2rem ！！！
             result = result / rem;
 
-            // 上下限制 左右拉倒最大值就不能在拉了
-            if(result <= -5.1){
-                result = -5.1;
-            } else if (result >= 0) {
-                result = 0;
+            // 伸缩效果 极限值是 0 和 -5.1 
+            // 缩放范围是 0.6 这些是试出来的 合理即可
+            if(result <= -5.7){
+                result = (result + 5.7) / 2 - 5.7;
+            }
+
+            if(result >= 0.6){
+                result = (result - 0.6) / 2 + 0.6;
             }
 
             header.css("marginLeft", result + "rem");
+        });
+
+        pinchHammer.on("panend", function (e) {
+            var current = parseFloat(header.css("marginLeft"));
+
+            // px2rem
+            current = current / rem;
+
+            // 上下限制
+            if(current <= -5.1){
+                current = -5.1;
+            } else if (current >= 0) {
+                current = 0;
+            }
+
+            header.animate({marginLeft: current + "rem"}, 300);
         });
     }
 })();
 swipeClosure();
 
-// step 4 完成
+// step 5 完成
 
 
